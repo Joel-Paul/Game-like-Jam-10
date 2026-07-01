@@ -1,16 +1,17 @@
 [gd_scene format=3 uid="uid://c61uhmra8s8qt"]
 
-[ext_resource type="Script" uid="uid://bgve11c3cebmn" path="res://scenes/world.gd" id="1_nnsk1"]
+[ext_resource type="Script" uid="uid://bgve11c3cebmn" path="res://scenes/world/world.gd" id="1_sl2e5"]
+[ext_resource type="PackedScene" uid="uid://cpb0ikgfoa0rd" path="res://scenes/player/player.tscn" id="2_1fp7r"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nnsk1"]
 albedo_color = Color(0.61960787, 0.44313726, 0.2901961, 1)
 
 [node name="World" type="Node3D" unique_id=1276647829]
-script = ExtResource("1_nnsk1")
-world_size = Vector3(64, 8, 64)
-cut_off = 0.3999999999999999
+script = ExtResource("1_sl2e5")
+world_size = Vector3(32, 8, 32)
 
 [node name="DefaultCube" type="CSGBox3D" parent="." unique_id=637771281]
+use_collision = true
 material = SubResource("StandardMaterial3D_nnsk1")
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=750550213]
@@ -18,3 +19,11 @@ transform = Transform3D(0.70710677, -0.49999997, 0.49999997, 0, 0.70710677, 0.70
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=332962215]
 transform = Transform3D(0.9848077, -0.17101006, 0.030153697, 0, 0.17364822, 0.9848077, -0.17364818, -0.96984625, 0.1710101, 0, 0, 0)
+
+[node name="Player" parent="." unique_id=1832668561 instance=ExtResource("2_1fp7r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 40, 0)
+
+[node name="Floor" type="CSGBox3D" parent="." unique_id=702132557]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -100, 0)
+use_collision = true
+size = Vector3(100, 1, 100)

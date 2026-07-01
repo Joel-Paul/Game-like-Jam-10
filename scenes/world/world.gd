@@ -7,6 +7,8 @@ extends Node3D
 
 
 func _ready() -> void:
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	
 	var random_generator := FastNoiseLite.new()
 	for x in range(world_size.x):
 		for z in range(world_size.z):
@@ -14,6 +16,10 @@ func _ready() -> void:
 				var random = random_generator.get_noise_3d(x, y, z)
 				if random > cut_off:
 					var new_cube: CSGBox3D = default_cube.duplicate()
-					new_cube.position = Vector3(x, y, z)
+					new_cube.position = Vector3(x, y, z) - world_size / 2
 					add_child(new_cube)
 	remove_child(default_cube)
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("ui_cancel"):
+		get_tree().quit()
