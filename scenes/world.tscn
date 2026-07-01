@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://c61uhmra8s8qt"]
+
+[ext_resource type="Script" uid="uid://bgve11c3cebmn" path="res://scenes/world.gd" id="1_nnsk1"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nnsk1"]
+albedo_color = Color(0.61960787, 0.44313726, 0.2901961, 1)
+
+[node name="World" type="Node3D" unique_id=1276647829]
+script = ExtResource("1_nnsk1")
+world_size = Vector3(64, 8, 64)
+cut_off = 0.3999999999999999
+
+[node name="DefaultCube" type="CSGBox3D" parent="." unique_id=637771281]
+material = SubResource("StandardMaterial3D_nnsk1")
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=750550213]
+transform = Transform3D(0.70710677, -0.49999997, 0.49999997, 0, 0.70710677, 0.70710677, -0.70710677, -0.49999997, 0.49999997, 42, 16, 42)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=332962215]
+transform = Transform3D(0.9848077, -0.17101006, 0.030153697, 0, 0.17364822, 0.9848077, -0.17364818, -0.96984625, 0.1710101, 0, 0, 0)
