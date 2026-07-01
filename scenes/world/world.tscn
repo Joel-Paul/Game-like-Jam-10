@@ -6,9 +6,21 @@
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nnsk1"]
 albedo_color = Color(0.61960787, 0.44313726, 0.2901961, 1)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_boito"]
+vertex_color_use_as_albedo = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_x7mai"]
+material = SubResource("StandardMaterial3D_boito")
+
+[sub_resource type="MultiMesh" id="MultiMesh_rxyi6"]
+transform_format = 1
+use_colors = true
+mesh = SubResource("BoxMesh_x7mai")
+
 [node name="World" type="Node3D" unique_id=1276647829]
 script = ExtResource("1_sl2e5")
-world_size = Vector3(32, 8, 32)
+world_size = Vector3(256, 64, 256)
+colors = Array[Color]([Color(0.943565, 0.42748943, 0.7149704, 1), Color(0.11083198, 0.83671683, 0.69336957, 1), Color(0.81697804, 0.7039995, 0.18230799, 1), Color(0.5752806, 0.66079146, 1, 1)])
 
 [node name="DefaultCube" type="CSGBox3D" parent="." unique_id=637771281]
 use_collision = true
@@ -27,3 +39,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 40, 0)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -100, 0)
 use_collision = true
 size = Vector3(100, 1, 100)
+
+[node name="MultiMeshInstance3D" type="MultiMeshInstance3D" parent="." unique_id=1796338998]
+multimesh = SubResource("MultiMesh_rxyi6")

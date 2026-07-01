@@ -2,6 +2,7 @@ extends CharacterBody3D
 
 
 const SPEED = 5.0
+const FLY_SPEED = 50.0
 const JUMP_VELOCITY = 4.5
 
 @export var mouse_sensitivity: float = 0.01  # radians/pixel
@@ -33,7 +34,7 @@ func _physics_process(delta: float) -> void:
 	var direction := (eye_camera.global_transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	if direction:
 		if flying:
-			velocity = direction * SPEED
+			velocity = direction * FLY_SPEED
 		else:
 			velocity.x = direction.x * SPEED
 			velocity.z = direction.z * SPEED
@@ -42,7 +43,7 @@ func _physics_process(delta: float) -> void:
 		velocity.z = move_toward(velocity.z, 0, SPEED)
 
 	if Input.is_action_pressed("ui_accept") and flying:
-		velocity.y = SPEED
+		velocity.y = FLY_SPEED
 
 	move_and_slide()
 
