@@ -2,7 +2,7 @@ extends CharacterBody3D
 
 
 const SPEED = 5.0
-const FLY_SPEED = 50.0
+const FLY_SPEED = 24.0
 const JUMP_VELOCITY = 4.5
 
 @export var mouse_sensitivity: float = 0.01  # radians/pixel
@@ -10,7 +10,7 @@ const JUMP_VELOCITY = 4.5
 @onready var head: Node3D = $Head
 @onready var eye_camera: Camera3D = $Head/EyeCamera
 
-var flying: bool = false
+var flying: bool = true
 
 
 func _physics_process(delta: float) -> void:

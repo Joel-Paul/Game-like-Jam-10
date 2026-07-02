@@ -5,11 +5,10 @@ extends Node3D
 @export_range(-1, 1) var cut_off: float = 0.5
 @export var colors: Array[Color]
 
-@onready var default_cube: CSGBox3D = $DefaultCube
-@onready var multi_mesh_instance_3d: MultiMeshInstance3D = $MultiMeshInstance3D
-
 var cubes: int = 0
-var data: Array[Vector3] = []
+var data: Dictionary[Vector3, Color] = {}
+
+@onready var mesh_instance_3d: MeshInstance3D = $MeshInstance3D
 
 
 func _ready() -> void:
@@ -24,19 +23,14 @@ func _ready() -> void:
 			for y in range(world_size.y):
 				var random = random_generator.get_noise_3d(x, y, z)
 				if random > cut_off:
-					data.append(Vector3(x, y, z) - world_size / 2)
+					var pos := Vector3(x, y, z) - world_size / 2
+					data[pos] = colors[y % colors.size()]
 	
 	var end_time = Time.get_ticks_usec()
 	var gen_time = (end_time - start_time) / 1000000.0
 	print_debug("Blocks in world: %s\n Gen Time: %s" % [cubes, gen_time])
 	
-	default_cube.queue_free()
-	
-	multi_mesh_instance_3d.multimesh.instance_count = data.size()
-	
-	for i in range(multi_mesh_instance_3d.multimesh.instance_count):
-		multi_mesh_instance_3d.multimesh.set_instance_transform(i, Transform3D(Basis(), data[i]))
-		multi_mesh_instance_3d.multimesh.set_instance_color(i, colors[randf() * colors.size()])
+	mesh_instance_3d.generate_mesh(data)
 
 
 func _unhandled_input(event: InputEvent) -> void:

@@ -2,43 +2,32 @@
 
 [ext_resource type="Script" uid="uid://bgve11c3cebmn" path="res://scenes/world/world.gd" id="1_sl2e5"]
 [ext_resource type="PackedScene" uid="uid://cpb0ikgfoa0rd" path="res://scenes/player/player.tscn" id="2_1fp7r"]
+[ext_resource type="Script" uid="uid://ce8l7tn8iw1uq" path="res://scenes/world/mesh_instance_3d.gd" id="3_1fp7r"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nnsk1"]
-albedo_color = Color(0.61960787, 0.44313726, 0.2901961, 1)
+[sub_resource type="ArrayMesh" id="ArrayMesh_rxyi6"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_boito"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8afob"]
 vertex_color_use_as_albedo = true
-
-[sub_resource type="BoxMesh" id="BoxMesh_x7mai"]
-material = SubResource("StandardMaterial3D_boito")
-
-[sub_resource type="MultiMesh" id="MultiMesh_rxyi6"]
-transform_format = 1
-use_colors = true
-mesh = SubResource("BoxMesh_x7mai")
 
 [node name="World" type="Node3D" unique_id=1276647829]
 script = ExtResource("1_sl2e5")
-world_size = Vector3(256, 64, 256)
+world_size = Vector3(256, 128, 256)
 colors = Array[Color]([Color(0.943565, 0.42748943, 0.7149704, 1), Color(0.11083198, 0.83671683, 0.69336957, 1), Color(0.81697804, 0.7039995, 0.18230799, 1), Color(0.5752806, 0.66079146, 1, 1)])
-
-[node name="DefaultCube" type="CSGBox3D" parent="." unique_id=637771281]
-use_collision = true
-material = SubResource("StandardMaterial3D_nnsk1")
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=750550213]
 transform = Transform3D(0.70710677, -0.49999997, 0.49999997, 0, 0.70710677, 0.70710677, -0.70710677, -0.49999997, 0.49999997, 42, 16, 42)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=332962215]
-transform = Transform3D(0.9848077, -0.17101006, 0.030153697, 0, 0.17364822, 0.9848077, -0.17364818, -0.96984625, 0.1710101, 0, 0, 0)
+transform = Transform3D(-0.13922861, 0.61412984, -0.7768268, 0.10379479, 0.789197, 0.605306, 0.98480564, 0.003645328, -0.17362225, 0, 0, 0)
 
 [node name="Player" parent="." unique_id=1832668561 instance=ExtResource("2_1fp7r")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 40, 0)
 
-[node name="Floor" type="CSGBox3D" parent="." unique_id=702132557]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -100, 0)
-use_collision = true
-size = Vector3(100, 1, 100)
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1123802514]
+mesh = SubResource("ArrayMesh_rxyi6")
+script = ExtResource("3_1fp7r")
+mat = SubResource("StandardMaterial3D_8afob")
 
-[node name="MultiMeshInstance3D" type="MultiMeshInstance3D" parent="." unique_id=1796338998]
-multimesh = SubResource("MultiMesh_rxyi6")
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D" unique_id=1617846421]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D" unique_id=380262934]
