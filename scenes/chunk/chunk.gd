@@ -12,14 +12,14 @@ var normals := PackedVector3Array()
 var colors := PackedColorArray()
 
 var cube_vertices: Array[Vector3] = [
-	Vector3(-0.5, -0.5, 0.5),
-	Vector3(0.5, -0.5, 0.5),
-	Vector3(0.5, -0.5, -0.5),
-	Vector3(-0.5, -0.5, -0.5),
-	Vector3(-0.5, 0.5, 0.5),
-	Vector3(0.5, 0.5, 0.5),
-	Vector3(0.5, 0.5, -0.5),
-	Vector3(-0.5, 0.5, -0.5),
+	Vector3(-0.5, -0.5, 0.5),  # Back bottom right
+	Vector3(0.5, -0.5, 0.5),  # Back bottom left
+	Vector3(0.5, -0.5, -0.5),  # Front bottom left
+	Vector3(-0.5, -0.5, -0.5),  # Front bottom right
+	Vector3(-0.5, 0.5, 0.5),  # Back top right
+	Vector3(0.5, 0.5, 0.5),  # Back top left
+	Vector3(0.5, 0.5, -0.5),  # Front top left
+	Vector3(-0.5, 0.5, -0.5),  # Front top right
 ]
 
 enum Face { BOTTOM, FRONT, RIGHT, TOP, LEFT, BACK }
@@ -42,24 +42,14 @@ var face_normals: Dictionary[Face, Vector3] = {
 	Face.TOP: Vector3.MODEL_TOP,
 }
 
-var face_colors: Dictionary[Face, Color] = {
-	Face.FRONT: Color.ORANGE,
-	Face.BACK: Color.PURPLE,
-	Face.LEFT: Color.BLUE,
-	Face.RIGHT: Color.YELLOW,
-	Face.BOTTOM: Color.RED,
-	Face.TOP: Color.GREEN,
-}
-
 @onready var collision_shape_3d: CollisionShape3D = $CollisionShape3D
 @onready var mesh_instance_3d: MeshInstance3D = $MeshInstance3D
 
 
 func _ready() -> void:
-	surface_array.resize(Mesh.ARRAY_MAX)
-	mesh_instance_3d.mesh = ArrayMesh.new()
 	if voxels.is_empty():
 		return
+	surface_array.resize(Mesh.ARRAY_MAX)
 	commit_mesh()
 
 
@@ -89,13 +79,13 @@ func generate_mesh() -> void:
 	for pos in voxels:
 		var color = voxels[pos]
 		for face in Face.values():
-			if not has_neighbour(voxels, face, pos):
+			if not has_neighbour(face, pos):
 				add_face(face, pos, color)
 
 
-func has_neighbour(data: Dictionary[Vector3, Color], face: Face, pos: Vector3) -> bool:
+func has_neighbour(face: Face, pos: Vector3) -> bool:
 	var neighbour_position = pos + face_normals[face]
-	return data.has(neighbour_position)
+	return voxels.has(neighbour_position)
 
 
 func add_face(face: Face, pos: Vector3, color: Color) -> void:
@@ -112,7 +102,8 @@ func commit_mesh() -> void:
 	surface_array[Mesh.ARRAY_NORMAL] = normals
 	surface_array[Mesh.ARRAY_COLOR] = colors
 	
-	(mesh_instance_3d.mesh as ArrayMesh).add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, surface_array)
+	var array_mesh := ArrayMesh.new()
+	array_mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, surface_array)
+	mesh_instance_3d.mesh = array_mesh
 	mesh_instance_3d.mesh.surface_set_material(0, mat)
-	
 	collision_shape_3d.shape = mesh_instance_3d.mesh.create_trimesh_shape()

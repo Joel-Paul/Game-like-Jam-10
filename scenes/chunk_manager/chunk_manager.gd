@@ -5,12 +5,12 @@ extends Node
 const CHUNK = preload("uid://du16hg66uur71")
 
 @export var colors: Array[Color]
-@export var dimensions := Vector3i(128, 64, 128)
-@export var chunk_size: int = 32
+@export var dimensions := Vector3i(128, 64, 128)  # world size in blocks
+@export var chunk_size: int = 32  # length/width/height of a cubic chunk
 @export var noise_seed: int = 0
 
 var random := FastNoiseLite.new()
-var number_of_chunks: Vector3
+var number_of_chunks: Vector3  # world size in chunks
 
 var loading_threads: Array[Thread] = [Thread.new(), Thread.new(), Thread.new(), Thread.new()]
 
@@ -30,7 +30,7 @@ func _ready() -> void:
 
 
 func generate_chunks(pos: Vector3) -> void:
-	var chunks: Vector3 = number_of_chunks / 2
+	var chunks: Vector3 = number_of_chunks / 2  # 4 threads, generating 4 quadrants (half in each direction)
 	for x in range(chunks.x):
 		for z in range(chunks.z):
 			for y in range(number_of_chunks.y):
