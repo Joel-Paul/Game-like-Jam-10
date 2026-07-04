@@ -1,7 +1,10 @@
-extends MeshInstance3D
+class_name Chunk
+extends StaticBody3D
 
 
 @export var mat: Material
+
+var voxels: Dictionary[Vector3, Color] = {}
 
 var surface_array: Array = []
 var vertices := PackedVector3Array()
@@ -48,20 +51,46 @@ var face_colors: Dictionary[Face, Color] = {
 	Face.TOP: Color.GREEN,
 }
 
-@onready var collision_shape_3d: CollisionShape3D = $StaticBody3D/CollisionShape3D
+@onready var collision_shape_3d: CollisionShape3D = $CollisionShape3D
+@onready var mesh_instance_3d: MeshInstance3D = $MeshInstance3D
 
 
 func _ready() -> void:
 	surface_array.resize(Mesh.ARRAY_MAX)
-
-
-func generate_mesh(data: Dictionary[Vector3, Color]) -> void:
-	for pos in data:
-		var color = data[pos]
-		for face in Face.values():
-			if not has_neighbour(data, face, pos):
-				add_face(face, pos, color)
+	mesh_instance_3d.mesh = ArrayMesh.new()
+	if voxels.is_empty():
+		return
 	commit_mesh()
+
+
+func generate_data(chunk_size: int, max_height: int, noise: Noise, color_array: Array[Color]) -> void:
+	for x in range(chunk_size):
+		for z in range(chunk_size):
+			var global_pos = position + Vector3(x, 0, z)
+			var rand = ((noise.get_noise_2d(global_pos.x, global_pos.z) \
+					+ 0.5 * noise.get_noise_2d(global_pos.x * 2, global_pos.z * 2) \
+					+ 0.25 * noise.get_noise_2d(4 * global_pos.x, 4 * global_pos.z)) / 1.75 \
+					+ 1) \
+					/ 2
+			var rand_p = pow(rand, 2.1)
+			var height = max_height * rand_p
+			
+			if height < position.y:
+				continue
+			
+			var local_height = height - position.y
+			for y in range(min(local_height, chunk_size)):
+				voxels[Vector3(x, y, z)] = color_array[y % color_array.size()]
+
+
+func generate_mesh() -> void:
+	if voxels.is_empty():
+		return
+	for pos in voxels:
+		var color = voxels[pos]
+		for face in Face.values():
+			if not has_neighbour(voxels, face, pos):
+				add_face(face, pos, color)
 
 
 func has_neighbour(data: Dictionary[Vector3, Color], face: Face, pos: Vector3) -> bool:
@@ -83,7 +112,7 @@ func commit_mesh() -> void:
 	surface_array[Mesh.ARRAY_NORMAL] = normals
 	surface_array[Mesh.ARRAY_COLOR] = colors
 	
-	(mesh as ArrayMesh).add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, surface_array)
-	mesh.surface_set_material(0, mat)
+	(mesh_instance_3d.mesh as ArrayMesh).add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, surface_array)
+	mesh_instance_3d.mesh.surface_set_material(0, mat)
 	
-	collision_shape_3d.shape = mesh.create_trimesh_shape()
+	collision_shape_3d.shape = mesh_instance_3d.mesh.create_trimesh_shape()

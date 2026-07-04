@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://cwu7vuyj8a2bt"]
+
+[ext_resource type="Script" uid="uid://24iemb57mayk" path="res://scenes/chunk_manager/chunk_manager.gd" id="1_527lp"]
+
+[node name="ChunkManager" type="Node" unique_id=1640746953]
+script = ExtResource("1_527lp")
+dimensions = Vector3i(256, 64, 256)
