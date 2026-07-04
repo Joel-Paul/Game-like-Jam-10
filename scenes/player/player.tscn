@@ -16,6 +16,7 @@ shape = SubResource("CapsuleShape3D_rxyi6")
 mesh = SubResource("CapsuleMesh_rxyi6")
 
 [node name="Head" type="Node3D" parent="." unique_id=1883202548]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 
 [node name="EyeCamera" type="Camera3D" parent="Head" unique_id=237174927]
 current = true
