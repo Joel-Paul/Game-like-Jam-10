@@ -10,6 +10,7 @@ const SPRINT_MULTIPLIER = 2.0
 
 @onready var head: Node3D = $Head
 @onready var eye_camera: Camera3D = $Head/EyeCamera
+@onready var collision_shape_3d: CollisionShape3D = $CollisionShape3D
 
 var flying: bool = true
 
@@ -28,6 +29,7 @@ func _physics_process(delta: float) -> void:
 
 	if Input.is_action_just_pressed("fly"):
 		flying = !flying
+		collision_shape_3d.disabled = flying
 	
 	var speed_multiplier: float = 1.0
 	if Input.is_action_pressed("sprint"):
