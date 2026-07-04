@@ -4,4 +4,3 @@
 
 [node name="ChunkManager" type="Node" unique_id=1640746953]
 script = ExtResource("1_527lp")
-dimensions = Vector3i(256, 64, 256)

@@ -1,11 +1,7 @@
 extends Node3D
 
 
-var data: Dictionary[Vector3, Color] = {}
-
-
 func _ready() -> void:
-	Performance.add_custom_monitor("game/cubes", func(): return data.keys().size())
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 
