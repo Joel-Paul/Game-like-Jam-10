@@ -2,9 +2,22 @@
 
 [ext_resource type="Script" uid="uid://qonjosjxebkp" path="res://scenes/terrain/terrain.gd" id="1_hn2sr"]
 [ext_resource type="PackedScene" uid="uid://cwu7vuyj8a2bt" path="res://scenes/chunk_manager/chunk_manager.tscn" id="2_5ibnn"]
+[ext_resource type="Script" uid="uid://d4dtr66or20xa" path="res://scripts/chunk_generators/fnl_generator.gd" id="3_uqx3c"]
+[ext_resource type="Script" uid="uid://co8v4w7pfgxy3" path="res://scripts/chunk_mesher/face_cull_mesher.gd" id="4_uqx3c"]
+
+[sub_resource type="Resource" id="Resource_mmmjq"]
+script = ExtResource("3_uqx3c")
+noise_seed = 1
+metadata/_custom_type_script = "uid://d4dtr66or20xa"
+
+[sub_resource type="Resource" id="Resource_527lp"]
+script = ExtResource("4_uqx3c")
+metadata/_custom_type_script = "uid://co8v4w7pfgxy3"
 
 [node name="Terrain" type="Node" unique_id=256719283]
 script = ExtResource("1_hn2sr")
-size = Vector3i(5, 1, 5)
+size = Vector3i(16, 8, 16)
 
 [node name="ChunkManager" parent="." unique_id=1640746953 instance=ExtResource("2_5ibnn")]
+chunk_generator = SubResource("Resource_mmmjq")
+chunk_mesher = SubResource("Resource_527lp")

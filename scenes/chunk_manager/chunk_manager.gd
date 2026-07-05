@@ -8,6 +8,11 @@ extends Node
 @export var chunk_mesher: ChunkMesher
 
 var chunks: Dictionary[Vector3i, Chunk] = {}
+var max_height: int = 0
+var min_height: int = 0
+
+func _ready() -> void:
+	chunk_generator.setup()
 
 
 func generate_chunk(chunk_pos: Vector3i) -> void:
