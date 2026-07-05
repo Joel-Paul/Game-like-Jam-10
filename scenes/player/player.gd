@@ -1,5 +1,9 @@
+class_name Player
 extends CharacterBody3D
 
+
+signal place_voxel(pos: Vector3i, voxel: Voxel)
+signal break_voxel(pos: Vector3i)
 
 const SPEED = 5.0
 const FLY_SPEED = 24.0
@@ -10,6 +14,7 @@ const SPRINT_MULTIPLIER = 2.0
 
 @onready var head: Node3D = $Head
 @onready var eye_camera: Camera3D = $Head/EyeCamera
+@onready var voxel_cast: VoxelCast = $Head/EyeCamera/RayCast3D
 @onready var collision_shape_3d: CollisionShape3D = $CollisionShape3D
 
 var flying: bool = true
@@ -67,3 +72,12 @@ func _unhandled_input(event: InputEvent) -> void:
 		head.rotate_y(-relative.x)
 		eye_camera.rotate_x(-relative.y)
 		eye_camera.rotation.x = clampf(eye_camera.rotation.x, deg_to_rad(-90), deg_to_rad(90))
+	
+	if event.is_action_pressed("place_voxel"):
+		var hit: VoxelCast.RayHit = voxel_cast.get_voxel()
+		if hit:
+			place_voxel.emit(hit.place_position, Voxels.dirt)
+	if event.is_action_pressed("break_voxel"):
+		var hit: VoxelCast.RayHit = voxel_cast.get_voxel()
+		if hit:
+			break_voxel.emit(hit.break_position)

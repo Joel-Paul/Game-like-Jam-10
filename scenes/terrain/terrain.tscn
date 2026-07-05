@@ -5,9 +5,8 @@
 [ext_resource type="Script" uid="uid://d4dtr66or20xa" path="res://scripts/chunk_generators/fnl_generator.gd" id="3_uqx3c"]
 [ext_resource type="Script" uid="uid://co8v4w7pfgxy3" path="res://scripts/chunk_mesher/face_cull_mesher.gd" id="4_uqx3c"]
 
-[sub_resource type="Resource" id="Resource_mmmjq"]
+[sub_resource type="Resource" id="Resource_ine53"]
 script = ExtResource("3_uqx3c")
-noise_seed = 1
 metadata/_custom_type_script = "uid://d4dtr66or20xa"
 
 [sub_resource type="Resource" id="Resource_527lp"]
@@ -16,8 +15,8 @@ metadata/_custom_type_script = "uid://co8v4w7pfgxy3"
 
 [node name="Terrain" type="Node" unique_id=256719283]
 script = ExtResource("1_hn2sr")
-size = Vector3i(16, 8, 16)
+size = Vector3i(5, 5, 5)
 
 [node name="ChunkManager" parent="." unique_id=1640746953 instance=ExtResource("2_5ibnn")]
-chunk_generator = SubResource("Resource_mmmjq")
+chunk_generator = SubResource("Resource_ine53")
 chunk_mesher = SubResource("Resource_527lp")

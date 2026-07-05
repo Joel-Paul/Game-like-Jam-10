@@ -13,10 +13,8 @@ var loading_thread := Thread.new()
 
 func _ready() -> void:
 	var chunk_h: int = chunk_manager.chunk_size.y
-	# Calculate the upper and lower bounds.
-	# The modulo stuff is necessary due to rounding in [method generate_chunks]
-	chunk_manager.max_height = roundi((size.y * chunk_h + size.y % 2 * chunk_h) / 2.0) - 1
-	chunk_manager.min_height = roundi((size.y * chunk_h - size.y % 2 * chunk_h) / -2.0)
+	chunk_manager.max_height = (size.y + 0) * chunk_h - 1
+	chunk_manager.min_height = 0
 	
 	loading_thread.start(generate_chunks)
 
@@ -29,4 +27,4 @@ func generate_chunks() -> void:
 	for x in range(size.x):
 		for y in range(size.y):
 			for z in range(size.z):
-				chunk_manager.generate_chunk(Vector3i(x, y, z) - Vector3i(size / 2.0))
+				chunk_manager.generate_chunk(Vector3i(x, y, z))

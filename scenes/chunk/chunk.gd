@@ -36,6 +36,14 @@ func has_voxel(pos: Vector3i) -> bool:
 	return voxels.has(pos % size)
 
 
+func add_voxel(pos: Vector3i, voxel: Voxel) -> bool:
+	return voxels.set(pos % size, voxel)
+
+
+func remove_voxel(pos: Vector3i) -> bool:
+	return voxels.erase(pos % size)
+
+
 func commit() -> void:
 	mesh.commit()
 	
@@ -65,3 +73,10 @@ class ChunkMesh:
 		arrays[Mesh.ARRAY_VERTEX] = vertices
 		arrays[Mesh.ARRAY_NORMAL] = normals
 		arrays[Mesh.ARRAY_COLOR] = colors
+	
+	
+	func clear() -> void:
+		arrays = []
+		vertices = PackedVector3Array()
+		normals = PackedVector3Array()
+		colors = PackedColorArray()

@@ -1,3 +1,2 @@
 TODO:
-	Make meshing depend on block
-	Make terrain generation interface
+	Load and unload chunks around player

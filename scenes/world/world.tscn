@@ -17,3 +17,5 @@ transform = Transform3D(-0.13922861, 0.61412984, -0.7768268, 0.10379479, 0.78919
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 40, 0)
 
 [node name="Terrain" parent="." unique_id=256719283 instance=ExtResource("3_1fp7r")]
+
+[editable path="Terrain"]
