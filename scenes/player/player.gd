@@ -15,6 +15,10 @@ const SPRINT_MULTIPLIER = 2.0
 var flying: bool = true
 
 
+func _ready() -> void:
+	collision_shape_3d.disabled = flying
+
+
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
 	if not is_on_floor():

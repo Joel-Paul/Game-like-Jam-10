@@ -2,8 +2,12 @@
 
 [ext_resource type="Script" uid="uid://ce8l7tn8iw1uq" path="res://scenes/chunk/chunk.gd" id="1_cqrjn"]
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cqrjn"]
+vertex_color_use_as_albedo = true
+
 [node name="Chunk" type="StaticBody3D" unique_id=196773811]
 script = ExtResource("1_cqrjn")
+material = SubResource("StandardMaterial3D_cqrjn")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=700692623]
 
