@@ -35,4 +35,4 @@ func generate_chunks() -> void:
 	for x in range(size.x):
 		for y in range(size.y):
 			for z in range(size.z):
-				chunk_manager.generate_chunk(Vector3i(x, y, z))
+				chunk_manager.generate_chunk(Vector3i(x, y, z) * chunk_manager.chunk_size)

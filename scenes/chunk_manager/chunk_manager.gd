@@ -16,9 +16,9 @@ func _ready() -> void:
 	chunk_generator.setup()
 
 
-func generate_chunk(chunk_pos: Vector3i) -> void:
-	var chunk = Chunk.create(self, chunk_pos * chunk_size, chunk_size)
-	chunks[chunk_pos] = chunk
+func generate_chunk(pos: Vector3i) -> void:
+	var chunk = Chunk.create(self, pos, chunk_size)
+	chunks[pos] = chunk
 	chunk_generator.generate(chunk)
 	chunk_mesher.generate(chunk)
 	call_deferred("add_child", chunk)
@@ -30,9 +30,12 @@ func regenerate_mesh(chunk: Chunk) -> void:
 	chunk.commit()
 
 
+func snap_pos(pos: Vector3) -> Vector3i:
+	return Vector3i(pos / Vector3(chunk_size)) * chunk_size
+
+
 func get_chunk(pos: Vector3i) -> Chunk:
-	@warning_ignore("integer_division")
-	return chunks.get(pos / chunk_size)
+	return chunks.get(snap_pos(pos))
 
 
 func get_voxel(pos: Vector3i) -> Voxel:
@@ -52,9 +55,8 @@ func has_voxel(pos: Vector3i) -> bool:
 func add_voxel(pos: Vector3i, voxel: Voxel) -> void:
 	var chunk: Chunk = get_chunk(pos)
 	if not chunk:
-		@warning_ignore("integer_division")
-		var chunk_pos: Vector3i = pos / chunk_size
-		chunk = Chunk.create(self, chunk_pos * chunk_size, chunk_size)
+		var chunk_pos: Vector3i = snap_pos(pos)
+		chunk = Chunk.create(self, chunk_pos, chunk_size)
 		chunks[chunk_pos] = chunk
 		add_child(chunk)
 	

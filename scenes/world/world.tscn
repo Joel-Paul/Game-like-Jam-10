@@ -16,7 +16,6 @@ metadata/_custom_type_script = "uid://co8v4w7pfgxy3"
 
 [node name="World" type="Node3D" unique_id=1276647829]
 script = ExtResource("1_sl2e5")
-size = Vector3i(5, 5, 5)
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=750550213]
 transform = Transform3D(0.70710677, -0.49999997, 0.49999997, 0, 0.70710677, 0.70710677, -0.70710677, -0.49999997, 0.49999997, 42, 16, 42)
