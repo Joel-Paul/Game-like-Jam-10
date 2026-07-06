@@ -44,3 +44,6 @@ func _init(model_color: Color) -> void:
 
 
 @abstract func get_colors(face: Voxel.Face) -> PackedColorArray
+
+
+@abstract func get_uvs(face: Voxel.Face) -> PackedVector2Array

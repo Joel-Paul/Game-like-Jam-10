@@ -6,6 +6,8 @@
 [ext_resource type="Script" uid="uid://d4dtr66or20xa" path="res://scripts/chunk_generators/fnl_generator.gd" id="4_v5dby"]
 [ext_resource type="Script" uid="uid://co8v4w7pfgxy3" path="res://scripts/chunk_mesher/face_cull_mesher.gd" id="5_t5ptc"]
 
+[sub_resource type="Environment" id="Environment_rxyi6"]
+
 [sub_resource type="Resource" id="Resource_1fp7r"]
 script = ExtResource("4_v5dby")
 metadata/_custom_type_script = "uid://d4dtr66or20xa"
@@ -21,7 +23,10 @@ script = ExtResource("1_sl2e5")
 transform = Transform3D(0.70710677, -0.49999997, 0.49999997, 0, 0.70710677, 0.70710677, -0.70710677, -0.49999997, 0.49999997, 42, 16, 42)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=332962215]
-transform = Transform3D(-0.13922861, 0.61412984, -0.7768268, 0.10379479, 0.789197, 0.605306, 0.98480564, 0.003645328, -0.17362225, 0, 0, 0)
+transform = Transform3D(0.8704298, 0.47975236, 0.1104064, 0.30251265, -0.69818276, 0.6488657, 0.3883785, -0.53139275, -0.7528504, 0, 0, 0)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=731030224]
+environment = SubResource("Environment_rxyi6")
 
 [node name="Player" parent="." unique_id=1832668561 instance=ExtResource("2_1fp7r")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 40, 0)

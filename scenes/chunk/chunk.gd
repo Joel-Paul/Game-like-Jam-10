@@ -60,12 +60,14 @@ class ChunkMesh:
 	var vertices := PackedVector3Array()
 	var normals := PackedVector3Array()
 	var colors := PackedColorArray()
+	var uvs := PackedVector2Array()
 	
 	
 	func add_face(pos: Vector3i, model: VoxelModel, face: Voxel.Face) -> void:
 		vertices.append_array(model.get_vertices(face, pos))
 		normals.append_array(model.get_normals(face))
 		colors.append_array(model.get_colors(face))
+		uvs.append_array(model.get_uvs(face))
 	
 	
 	func commit() -> void:
@@ -73,6 +75,7 @@ class ChunkMesh:
 		arrays[Mesh.ARRAY_VERTEX] = vertices
 		arrays[Mesh.ARRAY_NORMAL] = normals
 		arrays[Mesh.ARRAY_COLOR] = colors
+		arrays[Mesh.ARRAY_TEX_UV] = uvs
 	
 	
 	func clear() -> void:
@@ -80,3 +83,4 @@ class ChunkMesh:
 		vertices = PackedVector3Array()
 		normals = PackedVector3Array()
 		colors = PackedColorArray()
+		uvs = PackedVector2Array()
