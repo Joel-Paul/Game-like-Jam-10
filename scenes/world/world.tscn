@@ -2,10 +2,21 @@
 
 [ext_resource type="Script" uid="uid://bgve11c3cebmn" path="res://scenes/world/world.gd" id="1_sl2e5"]
 [ext_resource type="PackedScene" uid="uid://cpb0ikgfoa0rd" path="res://scenes/player/player.tscn" id="2_1fp7r"]
-[ext_resource type="PackedScene" uid="uid://bgi0t12pluk1o" path="res://scenes/terrain/terrain.tscn" id="3_1fp7r"]
+[ext_resource type="PackedScene" uid="uid://cwu7vuyj8a2bt" path="res://scenes/chunk_manager/chunk_manager.tscn" id="3_1fp7r"]
+[ext_resource type="Script" uid="uid://d4dtr66or20xa" path="res://scripts/chunk_generators/fnl_generator.gd" id="4_v5dby"]
+[ext_resource type="Script" uid="uid://co8v4w7pfgxy3" path="res://scripts/chunk_mesher/face_cull_mesher.gd" id="5_t5ptc"]
+
+[sub_resource type="Resource" id="Resource_1fp7r"]
+script = ExtResource("4_v5dby")
+metadata/_custom_type_script = "uid://d4dtr66or20xa"
+
+[sub_resource type="Resource" id="Resource_6m72w"]
+script = ExtResource("5_t5ptc")
+metadata/_custom_type_script = "uid://co8v4w7pfgxy3"
 
 [node name="World" type="Node3D" unique_id=1276647829]
 script = ExtResource("1_sl2e5")
+size = Vector3i(5, 5, 5)
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=750550213]
 transform = Transform3D(0.70710677, -0.49999997, 0.49999997, 0, 0.70710677, 0.70710677, -0.70710677, -0.49999997, 0.49999997, 42, 16, 42)
@@ -16,6 +27,6 @@ transform = Transform3D(-0.13922861, 0.61412984, -0.7768268, 0.10379479, 0.78919
 [node name="Player" parent="." unique_id=1832668561 instance=ExtResource("2_1fp7r")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 40, 0)
 
-[node name="Terrain" parent="." unique_id=256719283 instance=ExtResource("3_1fp7r")]
-
-[editable path="Terrain"]
+[node name="ChunkManager" parent="." unique_id=1640746953 instance=ExtResource("3_1fp7r")]
+chunk_generator = SubResource("Resource_1fp7r")
+chunk_mesher = SubResource("Resource_6m72w")
