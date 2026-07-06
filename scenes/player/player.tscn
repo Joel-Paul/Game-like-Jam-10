@@ -4,8 +4,12 @@
 [ext_resource type="Script" uid="uid://4naej6gyoaax" path="res://scenes/player/ray_cast_3d.gd" id="2_dovo2"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_rxyi6"]
+radius = 0.4
+height = 1.9
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_rxyi6"]
+radius = 0.4
+height = 1.9
 
 [node name="Player" type="CharacterBody3D" unique_id=1832668561]
 script = ExtResource("1_8afob")
