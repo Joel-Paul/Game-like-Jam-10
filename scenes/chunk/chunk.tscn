@@ -1,13 +1,15 @@
 [gd_scene format=3 uid="uid://du16hg66uur71"]
 
 [ext_resource type="Script" uid="uid://ce8l7tn8iw1uq" path="res://scenes/chunk/chunk.gd" id="1_cqrjn"]
+[ext_resource type="Shader" uid="uid://dvnsefxjbqfrp" path="res://scenes/chunk/chunk.gdshader" id="2_jk6be"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cqrjn"]
-vertex_color_use_as_albedo = true
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jpakw"]
+render_priority = 0
+shader = ExtResource("2_jk6be")
 
 [node name="Chunk" type="StaticBody3D" unique_id=196773811]
 script = ExtResource("1_cqrjn")
-material = SubResource("StandardMaterial3D_cqrjn")
+material = SubResource("ShaderMaterial_jpakw")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=700692623]
 

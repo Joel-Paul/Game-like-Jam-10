@@ -24,6 +24,7 @@ static func create(chunk_manager: ChunkManager, chunk_pos: Vector3i, chunk_size:
 
 
 func _ready() -> void:
+	mesh_instance_3d.set_instance_shader_parameter("texture_array", Textures.texture_array)
 	if not voxels.is_empty():
 		commit()
 
