@@ -5,6 +5,7 @@ extends Node3D
 @export_custom(PROPERTY_HINT_LINK, "suffix:ch") var size := Vector3i(3, 3, 3)
 
 var loading_thread := Thread.new()
+var _exit_thread := false
 
 @onready var chunk_manager: ChunkManager = $ChunkManager
 @onready var player: Player = $Player
@@ -23,6 +24,7 @@ func _ready() -> void:
 
 
 func _exit_tree() -> void:
+	_exit_thread = true
 	loading_thread.wait_to_finish()
 
 
@@ -35,4 +37,6 @@ func generate_chunks() -> void:
 	for x in range(size.x):
 		for y in range(size.y):
 			for z in range(size.z):
+				if _exit_thread:
+					return
 				chunk_manager.generate_chunk(Vector3i(x, y, z) * chunk_manager.chunk_size)
