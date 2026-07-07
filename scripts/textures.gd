@@ -4,7 +4,7 @@ extends Node
 const TEXTURE_PATH = "res://assets/voxels/"
 
 var texture_array := Texture2DArray.new()
-var texture_index: Dictionary[StringName, int] = {}
+var texture_map: Dictionary[StringName, int] = {}
 
 
 func _ready() -> void:
@@ -18,6 +18,7 @@ func _ready() -> void:
 				var image = texture.get_image()
 				image.convert(Image.Format.FORMAT_RGBA8)
 				image_array.append(image)
-				texture_index[file.get_basename()] = texture_index.size()
+				texture_map[file.get_basename()] = texture_map.size()
 	texture_array.create_from_images(image_array)
 	RenderingServer.global_shader_parameter_set("texture_array", texture_array)
+	Voxels.load_voxels()

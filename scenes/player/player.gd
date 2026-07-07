@@ -76,7 +76,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("place_voxel"):
 		var hit: VoxelCast.RayHit = voxel_cast.get_voxel()
 		if hit:
-			place_voxel.emit(hit.place_position, Voxels.dirt)
+			place_voxel.emit(hit.place_position, Voxels.grass)
 	if event.is_action_pressed("break_voxel"):
 		var hit: VoxelCast.RayHit = voxel_cast.get_voxel()
 		if hit:
