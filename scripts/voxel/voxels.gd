@@ -17,4 +17,5 @@ static func load_voxels() -> void:
 	dirt = Voxel.new(CubeModel.new(Color.SIENNA).set_texture_all("dirt"))
 	stone = Voxel.new(CubeModel.new(Color.DIM_GRAY).set_texture_all("stone"))
 	magma = Voxel.new(CubeModel.new(Color.ORANGE_RED).set_texture_all("magma"))
-	glass = Voxel.new(CubeModel.new(Color.ORANGE_RED).set_texture_all("glass"))
+	glass = Voxel.new(CubeModel.new(Color.ORANGE_RED).set_texture_all("glass")) \
+			.set_transparent()
