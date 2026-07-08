@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://k53fvrxagsq7"
-path="res://.godot/imported/stone.png-0c380f5bc178e96daf5e3dcfc6b79be8.ctex"
+uid="uid://cd27arsrnyp48"
+path="res://.godot/imported/glass.png-cd1e6663f4366e4dea4ee5535b34b717.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/voxels/stone.png"
-dest_files=["res://.godot/imported/stone.png-0c380f5bc178e96daf5e3dcfc6b79be8.ctex"]
+source_file="res://assets/voxels/glass.png"
+dest_files=["res://.godot/imported/glass.png-cd1e6663f4366e4dea4ee5535b34b717.ctex"]
 
 [params]
 
