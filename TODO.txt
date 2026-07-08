@@ -1,2 +1,0 @@
-TODO:
-	Load and unload chunks around player

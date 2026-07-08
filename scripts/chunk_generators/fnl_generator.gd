@@ -1,18 +1,23 @@
 class_name FNLGenerator
 extends ChunkGenerator
+## Generator that uses [FastNoiseLite] as the basis for generation.
 
 
+## See [member FastNoiseLite.frequency]
 @export var frequency: float = 0.01
+## See [member FastNoiseLite.noise_type]
 @export var noise_type := FastNoiseLite.TYPE_SIMPLEX_SMOOTH
+## See [member FastNoiseLite.seed]
 @export var noise_seed: int = 0
 
-var noise := FastNoiseLite.new()
+## The [FastNoiseLite] instance.
+var fnl := FastNoiseLite.new()
 
 
 func setup() -> void:
-	noise.frequency = frequency
-	noise.noise_type = noise_type
-	noise.seed = noise_seed
+	fnl.frequency = frequency
+	fnl.noise_type = noise_type
+	fnl.seed = noise_seed
 
 
 func generate(chunk: Chunk) -> void:
@@ -21,7 +26,7 @@ func generate(chunk: Chunk) -> void:
 			for z in range(chunk.size.z):
 				var pos := Vector3i(x, y, z)
 				var global_pos := Vector3i(chunk.position) + pos
-				var rand: float = noise.get_noise_3d(global_pos.x, global_pos.y, global_pos.z)
+				var rand: float = fnl.get_noise_3d(global_pos.x, global_pos.y, global_pos.z)
 				var voxel: Voxel
 				if rand > 0:
 					if global_pos.y == chunk.manager.max_height:

@@ -1,5 +1,6 @@
 class_name OddGenerator
 extends ChunkGenerator
+## Test generator that places dirt voxels on odd x positions.
 
 
 func generate(chunk: Chunk) -> void:

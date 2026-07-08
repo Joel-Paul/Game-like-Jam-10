@@ -10,7 +10,8 @@
 
 [sub_resource type="Resource" id="Resource_1fp7r"]
 script = ExtResource("4_v5dby")
-noise_seed = 1
+frequency = 0.1
+noise_type = 3
 metadata/_custom_type_script = "uid://d4dtr66or20xa"
 
 [sub_resource type="Resource" id="Resource_6m72w"]
@@ -19,7 +20,7 @@ metadata/_custom_type_script = "uid://co8v4w7pfgxy3"
 
 [node name="World" type="Node3D" unique_id=1276647829]
 script = ExtResource("1_sl2e5")
-size = Vector3i(8, 1, 8)
+size = Vector3i(8, 2, 8)
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=750550213]
 transform = Transform3D(0.70710677, -0.49999997, 0.49999997, 0, 0.70710677, 0.70710677, -0.70710677, -0.49999997, 0.49999997, 42, 16, 42)

@@ -1,5 +1,6 @@
 class_name CubeModel
 extends VoxelModel
+## A full cube.
 
 
 func get_vertices(face: Voxel.Face, offset := Vector3i.ZERO) -> PackedVector3Array:
@@ -10,13 +11,6 @@ func get_normals(face: Voxel.Face) -> PackedVector3Array:
 	var arr := PackedVector3Array()
 	arr.resize(6)
 	arr.fill(get_normal(face))
-	return arr
-
-
-func get_colors(_face: Voxel.Face) -> PackedColorArray:
-	var arr := PackedColorArray()
-	arr.resize(6)
-	arr.fill(color)
 	return arr
 
 
@@ -31,6 +25,9 @@ func get_uvs(_face: Voxel.Face) -> PackedVector2Array:
 	])
 
 
+## Returns the square vertices for a given [param face].
+## [param offset] moves the vertices to place
+## them at the correct position in the world.
 func _get_quad_vertices(face: Voxel.Face, offset := Vector3i.ZERO) -> PackedVector3Array:
 	match face:
 		Voxel.Face.FRONT:

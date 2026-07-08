@@ -1,8 +1,13 @@
 class_name Player
 extends CharacterBody3D
+## Based of the default player controller script.
+##
+## Probably could use some rework, but not a priority atm.
 
 
+## Emit when we want to place a voxel.
 signal place_voxel(pos: Vector3i, voxel: Voxel)
+## Emit when we want to break a voxel.
 signal break_voxel(pos: Vector3i)
 
 const SPEED = 5.0
@@ -25,14 +30,13 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
-	# Add the gravity.
+	# Add gravity if not flying.
 	if not is_on_floor():
 		if flying:
 			velocity = Vector3.ZERO
 		else:
 			velocity += get_gravity() * delta
 
-	# Handle jump.
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
 
@@ -45,9 +49,8 @@ func _physics_process(delta: float) -> void:
 		speed_multiplier = SPRINT_MULTIPLIER
 
 	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
 	var input_dir := Input.get_vector("leftward", "rightward", "forward", "backward")
-	var direction := (eye_camera.global_transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized() * speed_multiplier
+	var direction := (head.global_transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized() * speed_multiplier
 	if direction:
 		if flying:
 			velocity = direction * FLY_SPEED
@@ -60,6 +63,7 @@ func _physics_process(delta: float) -> void:
 
 	if Input.is_action_pressed("jump") and flying:
 		velocity.y = FLY_SPEED
+	
 	if Input.is_action_pressed("crouch") and flying:
 		velocity.y = -FLY_SPEED
 
@@ -77,6 +81,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		var hit: VoxelCast.RayHit = voxel_cast.get_voxel()
 		if hit:
 			place_voxel.emit(hit.place_position, Voxels.glass)
+	
 	if event.is_action_pressed("break_voxel"):
 		var hit: VoxelCast.RayHit = voxel_cast.get_voxel()
 		if hit:

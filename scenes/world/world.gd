@@ -1,10 +1,11 @@
 extends Node3D
 
 
-# Size of the world in chunks
+## World size in chunks.
 @export_custom(PROPERTY_HINT_LINK, "suffix:ch") var size := Vector3i(3, 3, 3)
 
-var loading_thread := Thread.new()
+## Used to generate chunks without interrupting rest of game.
+var _loading_thread := Thread.new()
 var _exit_thread := false
 
 @onready var chunk_manager: ChunkManager = $ChunkManager
@@ -15,17 +16,12 @@ func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	player.place_voxel.connect(chunk_manager.add_voxel)
 	player.break_voxel.connect(chunk_manager.remove_voxel)
-
+	
 	var chunk_h: int = chunk_manager.chunk_size.y
 	chunk_manager.max_height = (size.y + 0) * chunk_h - 1
 	chunk_manager.min_height = 0
 	
-	loading_thread.start(generate_chunks)
-
-
-func _exit_tree() -> void:
-	_exit_thread = true
-	loading_thread.wait_to_finish()
+	_loading_thread.start(generate_chunks)
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -33,6 +29,12 @@ func _unhandled_input(event: InputEvent) -> void:
 		get_tree().quit()
 
 
+func _exit_tree() -> void:
+	_exit_thread = true
+	_loading_thread.wait_to_finish()
+
+
+## Generates the chunks according to [member size]
 func generate_chunks() -> void:
 	for x in range(size.x):
 		for y in range(size.y):
