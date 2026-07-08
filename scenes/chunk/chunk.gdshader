@@ -4,7 +4,10 @@ global uniform sampler2DArray texture_array : filter_nearest_mipmap, source_colo
 varying flat float index;
 
 void fragment() {
-	ALBEDO = texture(texture_array, vec3(UV, index)).rgb;
+	vec4 tex = texture(texture_array, vec3(UV, index));
+	ALBEDO = tex.rgb;
+	ALPHA_SCISSOR_THRESHOLD = 0.5;
+	ALPHA = tex.a;
 }
 
 void vertex() {
