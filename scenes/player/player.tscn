@@ -15,6 +15,20 @@ height = 1.9
 radius = 0.1
 height = 0.2
 
+[sub_resource type="BoxMesh" id="BoxMesh_rxyi6"]
+size = Vector3(1.1, 1.1, 1.1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_x7mai"]
+transparency = 1
+shading_mode = 0
+disable_ambient_light = true
+disable_fog = true
+disable_specular_occlusion = true
+albedo_color = Color(1, 1, 1, 0.49803922)
+disable_receive_shadows = true
+stencil_flags = 2
+stencil_outline_thickness = 0.02
+
 [node name="Player" type="CharacterBody3D" unique_id=1832668561]
 script = ExtResource("1_8afob")
 
@@ -41,3 +55,7 @@ current = true
 [node name="RayCast3D" type="RayCast3D" parent="Head" unique_id=280856908]
 target_position = Vector3(0, 0, -4)
 script = ExtResource("2_dovo2")
+
+[node name="CSGMesh3D" type="CSGMesh3D" parent="Head/RayCast3D" unique_id=545744510]
+mesh = SubResource("BoxMesh_rxyi6")
+material = SubResource("StandardMaterial3D_x7mai")

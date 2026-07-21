@@ -21,6 +21,7 @@ const SPRINT_MULTIPLIER = 2.0
 @onready var eye_camera: Camera3D = $Head/SpringArm3D/EyeCamera
 @onready var voxel_cast: VoxelCast = $Head/RayCast3D
 @onready var collision_shape_3d: CollisionShape3D = $CollisionShape3D
+@onready var voxel_selection: CSGMesh3D = $Head/RayCast3D/CSGMesh3D
 
 var flying: bool = true
 
@@ -68,6 +69,12 @@ func _physics_process(delta: float) -> void:
 		velocity.y = -FLY_SPEED
 
 	move_and_slide()
+	
+	var hit: VoxelCast.RayHit = voxel_cast.get_voxel()
+	if hit:
+		voxel_selection.global_position = Vector3(hit.break_position) + Vector3.ONE / 2.0
+		voxel_selection.global_rotation = Vector3.ZERO
+	voxel_selection.visible = hit != null
 
 
 func _unhandled_input(event: InputEvent) -> void:
