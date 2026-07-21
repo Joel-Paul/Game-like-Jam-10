@@ -11,6 +11,10 @@ height = 1.9
 radius = 0.4
 height = 1.9
 
+[sub_resource type="SphereMesh" id="SphereMesh_x7mai"]
+radius = 0.1
+height = 0.2
+
 [node name="Player" type="CharacterBody3D" unique_id=1832668561]
 script = ExtResource("1_8afob")
 
@@ -20,15 +24,20 @@ shape = SubResource("CapsuleShape3D_rxyi6")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1547248782]
 mesh = SubResource("CapsuleMesh_rxyi6")
 
+[node name="NoseMesh" type="MeshInstance3D" parent="MeshInstance3D" unique_id=1065788606]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.44682246, -0.41360223)
+mesh = SubResource("SphereMesh_x7mai")
+
 [node name="Head" type="Node3D" parent="." unique_id=1883202548]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 
-[node name="EyeCamera" type="Camera3D" parent="Head" unique_id=237174927]
+[node name="SpringArm3D" type="SpringArm3D" parent="Head" unique_id=521056825]
+spring_length = 4.0
+margin = 0.5
+
+[node name="EyeCamera" type="Camera3D" parent="Head/SpringArm3D" unique_id=237174927]
 current = true
 
-[node name="RayCast3D" type="RayCast3D" parent="Head/EyeCamera" unique_id=280856908]
+[node name="RayCast3D" type="RayCast3D" parent="Head" unique_id=280856908]
 target_position = Vector3(0, 0, -4)
 script = ExtResource("2_dovo2")
-
-[node name="CSGBox3D" type="CSGBox3D" parent="Head/EyeCamera/RayCast3D" unique_id=1216501414]
-transform = Transform3D(0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, 0, 0, -4)

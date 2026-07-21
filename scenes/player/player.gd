@@ -18,8 +18,8 @@ const SPRINT_MULTIPLIER = 2.0
 @export var mouse_sensitivity: float = 0.01  # radians/pixel
 
 @onready var head: Node3D = $Head
-@onready var eye_camera: Camera3D = $Head/EyeCamera
-@onready var voxel_cast: VoxelCast = $Head/EyeCamera/RayCast3D
+@onready var eye_camera: Camera3D = $Head/SpringArm3D/EyeCamera
+@onready var voxel_cast: VoxelCast = $Head/RayCast3D
 @onready var collision_shape_3d: CollisionShape3D = $CollisionShape3D
 
 var flying: bool = true
@@ -73,9 +73,9 @@ func _physics_process(delta: float) -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
 		var relative: Vector2 = event.relative * mouse_sensitivity
-		head.rotate_y(-relative.x)
-		eye_camera.rotate_x(-relative.y)
-		eye_camera.rotation.x = clampf(eye_camera.rotation.x, deg_to_rad(-90), deg_to_rad(90))
+		rotate_y(-relative.x)
+		head.rotate_x(-relative.y)
+		head.rotation.x = clampf(head.rotation.x, deg_to_rad(-90), deg_to_rad(45))
 	
 	if event.is_action_pressed("place_voxel"):
 		var hit: VoxelCast.RayHit = voxel_cast.get_voxel()
